@@ -1,0 +1,75 @@
+<ion-content>
+  <h1>Phoenix Teasure Hunt</h1>
+  <h2>Enter Team Code</h2>
+  <hr>
+  <ion-grid class="team-code">
+    <ion-row>
+      <ion-col>
+        {{teamCode[0] == undefined? "&#8226;":teamCode[0]}}
+      </ion-col>
+      <ion-col>
+        {{teamCode[1] == undefined? "&#8226;":teamCode[1]}}
+      </ion-col>
+      <ion-col>
+        {{teamCode[2] == undefined? "&#8226;":teamCode[2]}}
+      </ion-col>
+      <ion-col>
+        {{teamCode[3] == undefined? "&#8226;":teamCode[3]}}
+      </ion-col>
+      <ion-col>
+        {{teamCode[4] == undefined? "&#8226;":teamCode[4]}}
+      </ion-col>
+      <ion-col>
+        {{teamCode[5] == undefined? "&#8226;":teamCode[5]}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <hr>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button (click)="add(1)">1</button>
+      </ion-col>
+      <ion-col>
+        <button (click)="add(2)">2</button>
+      </ion-col>
+      <ion-col>
+        <button (click)="add(3)">3</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button (click)="add(4)">4</button>
+      </ion-col>
+      <ion-col>
+        <button (click)="add(5)">5</button>
+      </ion-col>
+      <ion-col>
+        <button (click)="add(6)">6</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button (click)="add(7)">7</button>
+      </ion-col>
+      <ion-col>
+        <button (click)="add(8)">8</button>
+      </ion-col>
+      <ion-col>
+        <button (click)="add(9)">9</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button (click)="remove()" style="font-size:18px;">Back</button>
+      </ion-col>
+      <ion-col>
+        <button (click)="add(0)">0</button>
+      </ion-col>
+      <ion-col>
+        <button (click)="login()" style="font-size:18px;">Enter</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

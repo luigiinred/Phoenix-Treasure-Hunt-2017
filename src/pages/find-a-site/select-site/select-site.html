@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Find A Site</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <button ion-item (click)="goToSite(site)" *ngFor="let site of sites">
+      {{site.name}}
+    </button>
+  </ion-list>
+
+</ion-content>
