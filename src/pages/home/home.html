@@ -1,18 +1,45 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Sites</ion-title>
-    <ion-buttons end>
-      <button ion-button (click)="checkIn()">Check In</button>
-    </ion-buttons>
+    <ion-title>PTH17</ion-title>
+
   </ion-navbar>
 </ion-header>
 
-<ion-content color="background">
-  <!--<p> {{message}} </p>-->
-  <ion-list>
-    <ion-item *ngFor="let site of sites">
-      {{site.name}}
-      <ion-icon name="checkmark" item-right [hidden]="!site.isCheckedIn"></ion-icon>
-    </ion-item>
-  </ion-list>
+<ion-content padding>
+  <img src="./assets/img/gear2.png">
+
+  <h1 class="team-name">
+    {{account.teamName}}
+  </h1>
+
+  <ion-card padding class="countdown">
+    <div *ngIf="secondsTillStart > 0">
+      <timer #timer timeInSeconds="{{secondsTillStart}}" (onComplete)="doRefresh()"></timer>
+      <h2>until hunt begins</h2>
+    </div>
+    <div *ngIf="secondsTillStart < 0 && secondsTillEnd > 0">
+      <timer #timer timeInSeconds="{{secondsTillEnd}}" (onComplete)="doRefresh()"></timer>
+      <h2>until hunt ends</h2>
+    </div>
+    <div *ngIf="secondsTillEnd < 0 && secondsTillStart < 0">
+      <h2>The hunt has ended</h2>
+    </div>
+  </ion-card>
+  <br>
+  <button ion-button block (click)="checkIn()" [disabled]="!canCheckIn" *ngIf="account.isAdmin || secondsTillStart < 0 && secondsTillEnd > 0">
+    <span [hidden]="!canCheckIn">Check in</span>
+    <span [hidden]="canCheckIn">Checking in...</span>
+  </button>
+  <br>
+  <button ion-button block (click)="openMapToStart()" *ngIf="account.isAdmin || secondsTillStart > 0">
+    Directions to  Start
+  </button>
+  <br>
+  <button ion-button block (click)="pics()">
+    Send us a Picture
+  </button>
+  <br>
+  <button ion-button block (click)="openMapToStart()" *ngIf="account.isAdmin || secondsTillEnd < 0 && secondsTillStart < 0">
+    Directions to Banquet
+  </button>
 </ion-content>

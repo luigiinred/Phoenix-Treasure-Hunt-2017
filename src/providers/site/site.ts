@@ -55,7 +55,7 @@ export class SiteFactory {
 
   public checkIn() {
     return new Promise((resolve, reject) => {
-      Geolocation.getCurrentPosition().then((resp) => {
+      Geolocation.getCurrentPosition({ enableHighAccuracy: true }).then((resp) => {
 
         this.http.post(`${Constants.API_ENDPOINT}/update_location_or_checkin.php`, {
           teamCode: this.account.teamCode,

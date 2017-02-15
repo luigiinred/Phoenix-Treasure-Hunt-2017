@@ -16,44 +16,80 @@ export class FindSitePage {
   public accuracy = 0;
   public heading = 0;
   public site;
+  public watch;
   count = 0;
+  failCount = 0;
   constructor(public navCtrl: NavController, public navParams: NavParams, private findASiteFactory: FindASiteFactory) {
 
-    Geolocation.getCurrentPosition({ enableHighAccuracy: false }).then((resp) => {
-      this.latitude = resp.coords.latitude;
-      this.longitude = resp.coords.longitude;
-      this.speed = resp.coords.speed;
-      this.accuracy = resp.coords.accuracy;
+    Geolocation.getCurrentPosition({ enableHighAccuracy: true }).then((resp) => {
 
-      this.distance = this.calcCrow(this.latitude, this.longitude, this.site.lat, this.site.long);
+      if (resp.coords) {
+
+        this.latitude = resp.coords.latitude;
+        this.longitude = resp.coords.longitude;
+        this.speed = resp.coords.speed;
+        this.accuracy = resp.coords.accuracy;
+        this.distance = this.calcCrow(this.latitude, this.longitude, this.site.lat, this.site.long);
+        this.count++
+      } else {
+        this.failCount++;
+      }
     })
-
     this.site = navParams.get('site');
 
-    // window.setInterval(() => {
-    //   Geolocation.getCurrentPosition().then((resp) => {
-    //     this.latitude = resp.coords.latitude;
-    //     this.longitude = resp.coords.longitude;
 
+    window.setInterval(() => {
+      Geolocation.getCurrentPosition({ enableHighAccuracy: true }).then((resp) => {
+        if (resp.coords) {
+          this.latitude = resp.coords.latitude;
+          this.longitude = resp.coords.longitude;
+          this.speed = resp.coords.speed;
+          this.accuracy = resp.coords.accuracy;
+          this.distance = this.calcCrow(this.latitude, this.longitude, this.site.lat, this.site.long);
+          this.count++
+        } else {
+          this.failCount++;
+        }
+      })
+    }, 3000);
+
+    // this.watch = Geolocation.watchPosition({ enableHighAccuracy: false, timeout: 4000, maximumAge: 2000 });
+
+    // this.watch.subscribe((data: any) => {
+    //   if (data.coords) {
+    //     this.latitude = data.coords.latitude;
+    //     this.longitude = data.coords.longitude;
+    //     this.speed = data.coords.speed;
+    //     this.heading = data.coords.heading;
+    //     this.accuracy = data.coords.accuracy;
     //     this.distance = this.calcCrow(this.latitude, this.longitude, this.site.lat, this.site.long);
-    //     this.speed = resp.coords.speed;
-    //     this.accuracy = resp.coords.accuracy;
     //     this.count++;
-    //   })
-    // }, 500);
+    //   } else {
+    //     this.failCount++;
+    //   }
+    // })
 
-    let watch = Geolocation.watchPosition({ enableHighAccuracy: false });
+  }
+  ionViewWillLeave() {
+    // this.watch.unsubscribe();
+    clearInterval(this.watch);
+  }
 
-    watch.subscribe((data: any) => {
-      this.latitude = data.coords.latitude;
-      this.longitude = data.coords.longitude;
-      this.speed = data.coords.speed;
-      this.heading = data.coords.heading;
-      this.accuracy = data.coords.accuracy;
-      this.distance = this.calcCrow(this.latitude, this.longitude, this.site.lat, this.site.long);
-      this.count++;
+  check() {
+    Geolocation.getCurrentPosition({ enableHighAccuracy: false }).then((resp) => {
+
+      if (resp.coords) {
+
+        this.latitude = resp.coords.latitude;
+        this.longitude = resp.coords.longitude;
+        this.speed = resp.coords.speed;
+        this.accuracy = resp.coords.accuracy;
+
+        this.distance = this.calcCrow(this.latitude, this.longitude, this.site.lat, this.site.long);
+      } else {
+        this.failCount++;
+      }
     })
-
   }
 
   calcCrow(lat1, lon1, lat2, lon2) {

@@ -9,25 +9,24 @@ import {
 } from 'ionic-angular';
 import { FindSitePage } from '../find-site/find-site';
 
-import {FindASiteFactory, FindASiteModel} from  '../../../providers/site/find-a-site';
+import { FindASiteFactory, FindASiteModel } from '../../../providers/site/find-a-site';
 @Component({
   templateUrl: 'select-site.html'
 })
 export class SelectSitePage {
 
-  
-  public sites:FindASiteModel[];
+  public sites: FindASiteModel[];
 
-  constructor(public navCtrl: NavController , private findASiteFactory:FindASiteFactory) {
-       findASiteFactory.fetch().then((result: FindASiteModel[]) => {
+  constructor(public navCtrl: NavController, private findASiteFactory: FindASiteFactory) {
+    findASiteFactory.fetch().then((result: FindASiteModel[]) => {
       this.sites = result;
+    }, (error) => {
+      console.log(error);
     })
   }
 
-  goToSite(site){
-        this.navCtrl.push(FindSitePage, { site: site });
+  goToSite(site) {
+    this.navCtrl.push(FindSitePage, { site: site });
   }
-
-
 
 }
