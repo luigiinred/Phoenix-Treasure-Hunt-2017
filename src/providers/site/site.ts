@@ -66,18 +66,7 @@ export class SiteFactory {
             withCredentials: false
           }).map(res => res.json()).subscribe(
           data => {
-            if (data.statusCode === 0) {
-              resolve("Checked In");
-              this.fetch().then((sites) => {
-                resolve({ message: "Checked In", sites: sites });
-              });
-            }
-            if (data.statusCode === 1) {
-              resolve({ message: "Already Checked In", sites: this.sites });
-            }
-            if (data.statusCode === 2) {
-              resolve({ message: "Too Far From A Site", sites: this.sites });
-            }
+            resolve({ message: data.statusText });
           }, error => {
             console.log(error);
             reject();

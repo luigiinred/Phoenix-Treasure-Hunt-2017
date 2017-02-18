@@ -16,13 +16,17 @@ export class SitesPage {
 
 
   constructor(public navCtrl: NavController, private siteFactory: SiteFactory, public account: Account, public toastCtrl: ToastController) {
-    siteFactory.fetch().then((result: SiteModel[]) => {
+
+  }
+  ionViewWillEnter() {
+    this.siteFactory.fetch().then((result: SiteModel[]) => {
       this.sites = result;
     })
   }
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
     this.siteFactory.fetch().then((result: SiteModel[]) => {
+      this.sites = result;
       refresher.complete();
     })
 

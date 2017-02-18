@@ -27,7 +27,7 @@ export class Account {
             }).map(res => res.json()).subscribe(
                 data => {
                     this.teamCode = teamCode;
-                    this.teamName = data.teamName;
+                    this.teamName = data.name;
                     this.isAdmin = !!parseInt(data.admin);
                     resolve(data);
                 }, error => {
@@ -38,7 +38,9 @@ export class Account {
     }
 
     logout() {
-
+        this.teamCode = null;
+        this.teamName = null;
+        this.isAdmin = null;
     }
 
 

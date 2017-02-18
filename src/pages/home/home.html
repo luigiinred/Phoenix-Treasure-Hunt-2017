@@ -42,4 +42,9 @@
   <button ion-button block (click)="openMapToStart()" *ngIf="account.isAdmin || secondsTillEnd < 0 && secondsTillStart < 0">
     Directions to Banquet
   </button>
+  <br>
+  <br>
+  <button ion-button color="danger" block (click)="logout()">
+    Sign out
+  </button>
 </ion-content>

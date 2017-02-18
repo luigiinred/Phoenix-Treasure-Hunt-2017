@@ -6,6 +6,7 @@ import { Account } from '../../providers/account/account';
 import { Settings } from '../../providers/settings/settings';
 import { TimerComponent } from '../../components/timer/timer';
 import { ImagePicker } from 'ionic-native';
+import { LoginPage } from '../../pages/login/login';
 
 import { LaunchNavigator, LaunchNavigatorOptions } from 'ionic-native';
 
@@ -79,6 +80,11 @@ export class HomePage {
         console.log('Image URI: ' + results[i]);
       }
     }, (err) => { });
+  }
+
+  logout() {
+    this.navCtrl.setRoot(LoginPage);
+    this.account.logout();
   }
 
 
